@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Nauli za Mabasi ya mikoani, Tanzania regions Intercity bus fares from/to Arusha, Dodoma, Mwanza, Morogoro, Mbeya, Tanga, Dar es salaam n.k">
+    <title>Nauli za Mabasi ya Mikoani / Tanzania Intercity Bus Fares</title>
+    <%- include('./partials/style.ejs'); %>
+        <%- include('../global/style.ejs'); %>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+                integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+                crossorigin="anonymous">
+    <%- include('../global/favicon.ejs') %> 
+</head>
+
+<body>
+    <%- include('../global/header.ejs'); %>
+        <main>
+            <section class="left">
+                <h2 class="h2" style="font-size: 16px;">Nauli za Mabasi | Regions Mikoani Intercity Bus Fares</h2>
+                <div class="cont" itemscope>
+                    <% mikoa.forEach(mk=> { %>
+                        <a href="/<%= mk.name.replace(/ /g, '_') %> " class="mkoa"
+                            itemtype="https://schema.org/DefinedRegion">
+                            <h3 itemprop="addressRegion">
+                                <%= mk.name %>
+                            </h3>
+                            <ul>
+                                <li>See all <%= mk.name %> routes and distances from/to</li>
+                                <li>Nauli za Mabasi from <%= mk.name %> to <%= mk.idadi %> regions and their bus
+                                            stations </li>
+                            </ul>
+                            <span>READ MORE...</span>
+                        </a>
+                        <% }) %>
+                </div>
+
+                <%- include('../global/mwisho.ejs'); %> 
+            </section>
+
+            <%- include('../global/right.ejs'); %>
+        </main>
+
+        <%- include('../global/footer.ejs'); %> 
+
+        <%- include('./partials/script.ejs'); %>
+            <%- include('../global/script.ejs'); %>
+
+                <!-- bootstrap -->
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+                    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+                    crossorigin="anonymous"></script>
+</body>
+
+</html>

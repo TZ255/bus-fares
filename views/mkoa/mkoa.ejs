@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="<%= mkoa.mkoa %> all routes bus fares | Nauli za Mabasi ya <%= mkoa.mkoa %> kwa mikoa yote Tanzania.">
+    <title>Nauli za Mabasi <%= mkoa.mkoa %></title>
+    <%- include('./partials/style.ejs'); %>
+        <%- include('../global/style.ejs'); %>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+                integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+                crossorigin="anonymous">
+            <%- include('../global/favicon.ejs') %>
+</head>
+
+<body>
+    <%- include('../global/header.ejs'); %>
+        <main>
+            <section class="left">
+                <h1 class="h2" style="font-size: 16px;">Nauli za Mabasi | From <%= mkoa.mkoa %> kwenda mikoa yote
+                        Tanzania</h1>
+                <div class="routes">
+                    <p>Hizi hapa nauli from <%= mkoa.mkoa %> to <% yote.forEach(name => { %>
+                     ,<span style="text-transform: capitalize;">
+                        <%= name.toLowerCase() %> 
+                     </span>
+                    <% }) %>. </p>
+                    <br><br>
+
+                    <% mkoa.info.forEach(route=> { %>
+                        <div class="route" itemscope itemtype="https://schema.org/BusTrip">
+                            <h2 class="title">Nauli From <span itemprop="departureBusStop">
+                                    <%= route.from %>
+                                </span> to <span itemprop="arrivalBusStop">
+                                    <%= route.to %>
+                                </span> via <%= route.via %>
+                            </h2>
+                            <p itemprop="description">
+                                Hii ndiyo Nauli from <%= route.from %> to <%= route.to %> via <%= route.via %> Road kwa
+                                            ordinary buses, semi-luxury buses na luxury buses.
+                            </p>
+                            <div class="rsv" itemscope itemtype="https://schema.org/BusReservation">
+                                <h3>
+                                    🚍 Nauli for Ordinary Buses from <%= route.from %> to <%= route.to %> via <%= route.via %>.
+                                </h3>
+                                <p>
+                                    >> Nauli kwa Ordinary buses ni <span class="bei" itemprop="totalPrice">Tsh. <%= route.ord %> </span>
+                                </p>
+                                <br>
+                                <h3>
+                                    🚍 Nauli for Semi-luxury Buses from <%= route.from %> to <%= route.to %> via <%= route.via %>.
+                                </h3>
+                                <p>
+                                    >> Nauli kwa Semi-luxury buses ni <span class="bei" itemprop="totalPrice">Tsh. <%= route.slex %> </span>
+                                </p>
+                            </div>
+
+                            <div class="more">
+                                <a href="<%= mkoa.mkoa.replace(/ /g, '_') %>/<%= route.rid %> ">🔗 JUA ZAIDI / KNOW MORE ABOUT THIS JOURNEY...</a>
+                            </div>
+                        </div>
+                        <% }) %>
+                </div>
+            </section>
+
+            <%- include('../global/right.ejs'); %>
+        </main>
+
+        <%- include('../global/footer.ejs'); %>
+
+            <%- include('./partials/script.ejs'); %>
+                <%- include('../global/script.ejs'); %>
+
+                    <!-- bootstrap -->
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+                        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+                        crossorigin="anonymous"></script>
+</body>
+
+</html>
