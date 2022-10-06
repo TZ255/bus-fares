@@ -1,17 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us</title>
-    <%- include('../global/style.ejs') %>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <%- include('../global/favicon.ejs') %>
+        <title>Contact Us</title>
+        <%- include('../global/style.ejs') %>
+
+            <style>
+                .bodytxt {
+                    background-color: white;
+                    padding: 24px;
+                    text-align: justify;
+                }
+
+                .bodytxt .li {
+                    margin-left: 32px;
+                }
+
+                .bodytxt a {
+                    text-decoration: none;
+                    font-weight: bold;
+                    color: dodgerblue;
+                }
+
+                h1.ftitle {
+                    padding: 12px;
+                    font-weight: bold;
+                    font-family: Arial, Helvetica, sans-serif;
+                    font-size: 24px;
+                }
+            </style>
 </head>
+
 <body>
     <%- include('../global/header.ejs') %>
 
-    <script>
-        document.querySelector('.contact-link').classList.add('active')
-    </script>
+        <div class="left">
+            <h1 class="ftitle">
+                <i class="fa-regular fa-building"></i>
+                Contact Us
+            </h1>
+            <div class="bodytxt">
+                Welcome to Font5 - Online Text Changer that generate cool stylish and fancy texts. <br>
+                If you need any kind of help regarding Font5.net website you can contact us by <a href="mailto:support@font5.net">support@font5.net</a> 
+                <br><br>
+                Kindly mention your Subject and Website information on email.
+            </div>
+        </div>
+
+        <%- include('../global/footer.ejs') %>
+
+            <script>
+                document.querySelector('.contact-link').classList.add('active')
+            </script>
+            <!-- bootstrap -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+                crossorigin="anonymous"></script>
 </body>
+
 </html>

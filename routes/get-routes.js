@@ -25,6 +25,26 @@ router.get('/latra', (req, res) => {
     res.redirect('https://www.latra.go.tz/')
 })
 
+router.get('/privacy', (req, res)=> {
+    res.render('zzzpages/privacy')
+})
+
+router.get('/terms', (req, res)=> {
+    res.render('zzzpages/terms')
+})
+
+router.get('/disclaimer', (req, res)=> {
+    res.render('zzzpages/disclaimer')
+})
+
+router.get('/contact', (req, res)=> {
+    res.render('zzzpages/contact')
+})
+
+router.get('/about', (req, res)=> {
+    res.render('zzzpages/about')
+})
+
 router.get('/:mkoa', async (req, res) => {
     let mkoa_name = req.params.mkoa.replace(/_/g, ' ').toUpperCase()
 
