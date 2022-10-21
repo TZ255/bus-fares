@@ -80,14 +80,19 @@
                             Regions)
                     </h2>
                     <ol class="links">
-                        <% others.info.forEach(el => { %>
-                            <li><a href="/<%= mkoa %>/<%= el.rid %>">Nauli from <%= el.from %> to <%= el.to %> via <%=
-                                el.via %>.</a></li>
-                        <% }) %>
+                        <% others.info.forEach(el=> { %>
+                            <% if (el.rid != post.info[0].rid) { %>
+                                <li>
+                                    <a href="/<%= mkoa %>/<%= el.rid %>">Nauli from <%= el.from %> to <%= el.to %> via
+                                                <%= el.via %>.
+                                    </a>
+                                </li>
+                                <% } %>
+                                    <% }) %>
                     </ol>
                 </div>
 
-                <%- include('../global/global-mwisho.ejs'); %> 
+                <%- include('../global/global-mwisho.ejs'); %>
             </section>
 
             <%- include('../global/right.ejs'); %>

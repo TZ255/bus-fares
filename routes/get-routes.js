@@ -25,23 +25,23 @@ router.get('/latra', (req, res) => {
     res.redirect('https://www.latra.go.tz/')
 })
 
-router.get('/privacy', (req, res)=> {
+router.get('/privacy', (req, res) => {
     res.render('zzzpages/privacy')
 })
 
-router.get('/terms', (req, res)=> {
+router.get('/terms', (req, res) => {
     res.render('zzzpages/terms')
 })
 
-router.get('/disclaimer', (req, res)=> {
+router.get('/disclaimer', (req, res) => {
     res.render('zzzpages/disclaimer')
 })
 
-router.get('/contact', (req, res)=> {
+router.get('/contact', (req, res) => {
     res.render('zzzpages/contact')
 })
 
-router.get('/about', (req, res)=> {
+router.get('/about', (req, res) => {
     res.render('zzzpages/about')
 })
 
@@ -62,18 +62,23 @@ router.get('/:mkoa', async (req, res) => {
 })
 
 router.get('/:mkoa/:rid', async (req, res) => {
-    let mkoa = req.params.mkoa.toUpperCase().replace(/_/g, ' ').trim()
-    let rid = req.params.rid.trim()
-
-    try {
-        let post = await mkoa_db.findOne({ mkoa }).select({ info: { $elemMatch: { rid } } })
-        let others = await mkoa_db.findOne({mkoa}).select('info')
-        res.render('articles/article', {mkoa, post, others})
-    } catch (err) {
-        console.log(err)
-        console.log(err.message)
+    if (req.params.mkoa == 'DAR ES SALAAM' || req.params.mkoa == 'dar es salaam') {
+        res.redirect(301, `/DAR_ES_SALAAM/${req.params.rid}`)
     }
-    
+
+    else {
+        let mkoa = req.params.mkoa.toUpperCase().replace(/_/g, ' ').trim()
+        let rid = req.params.rid.trim()
+
+        try {
+            let post = await mkoa_db.findOne({ mkoa }).select({ info: { $elemMatch: { rid } } })
+            let others = await mkoa_db.findOne({ mkoa }).select('info')
+            res.render('articles/article', { mkoa, post, others })
+        } catch (err) {
+            console.log(err)
+            console.log(err.message)
+        }
+    }
 
 })
 
