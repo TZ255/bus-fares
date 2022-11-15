@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Nauli elekezi ya mkoa wa <%= mkoa %> kutoka stand ya <%= post.info[0].from %> to <%= post.info[0].to %> kupitia barabara ya <%= post.info[0].via %> kwa ordinary, semi na luxury buses...">
+        content="Nauli elekezi ya mkoa wa <%= mkoa %> kutoka stand ya <%= post.info[0].from %> kwenda <%= post.info[0].to %> kupitia barabara ya <%= post.info[0].via %> kwa mabasi ya ordinary, semi na luxury na luxury">
     <title>Nauli <%= post.info[0].from %> to <%= post.info[0].to %>
     </title>
     <%- include('./partials/style.ejs'); %>
@@ -22,68 +22,64 @@
         <main>
             <section class="left">
                 <h1 class="h2" style="font-size: 16px;">
-                    Nauli za Mabasi Elekezi from <%= post.info[0].from %> to <%= post.info[0].to %> via <%=
+                    Nauli za Mabasi elekezi kutoka <%= post.info[0].from %> kwenda <%= post.info[0].to %> kupitia njia ya <%=
                                 post.info[0].via %>
                 </h1>
-                <p style="padding: 12px;">
-                    Before proceeding let us familiarize ourselves with this journey.
-                </p>
                 <div class="secs" itemscope itemtype="https://schema.org/Distance">
-                    <h2 itemprop="name">1. First What Is a Distance / Umbali from <span class="cap">
+                    <h2 itemprop="name">1. Umbali kutoka <span class="cap">
                             <%= post.info[0].from.toLowerCase() %>
-                        </span> to <span class="cap">
+                        </span> kwenda <span class="cap">
                             <%= post.info[0].to.toLowerCase() %>
                         </span> </h2>
                     <p itemprop="description">
-                        There is a distance of <b itemprop="distance">
-                            <%= post.info[0].dist %> KM
-                        </b> which is equal to <b itemprop="distance">
+                        Kuna umbali wa kilomita <b itemprop="distance">
+                            <%= post.info[0].dist %>
+                        </b> ambao ni sawa na maili <b itemprop="distance">
                             <%= Number(Number(post.info[0].dist.replace(/,/g, '' )) * 0.621371).toLocaleString('en-us')
-                                %> miles,
-                        </b> this is via <span class="cap">
+                                %>,
+                        </b> hii ni kwa kupitia njia ya <span class="cap">
                             <%= post.info[0].via.toLowerCase() %>
-                        </span> road.
+                        </span>.
                     </p>
                 </div>
                 <div class="secs" itemscope itemtype="https://schema.org/BusReservation">
-                    <h2 itemprop="name">2. Nauli Kwa Ordinary buses from <span class="cap">
+                    <h2 itemprop="name">2. Nauli Kwa Mabasi ya Ordinary Kutoka <span class="cap">
                             <%= post.info[0].from.toLowerCase() %>
-                        </span> to <span class="cap">
+                        </span> kwenda <span class="cap">
                             <%= post.info[0].to.toLowerCase() %>
-                        </span> via barabara ya <span class="cap">
+                        </span> kupitia barabara ya <span class="cap">
                             <%= post.info[0].via.toLowerCase() %>
                         </span> </h2>
                     <p>
-                        >> Kwa mabasi ya Ordinary Nauli in terms of Tanzanian Shillings is <b itemprop="totalPrice">Tsh.
+                        >> Kwa mabasi ya Ordinary nauli ni <b itemprop="totalPrice">Tsh.
                             <%= post.info[0].ord %>/=
                         </b>
                     </p>
                 </div>
 
                 <div class="secs" itemscope itemtype="https://schema.org/BusReservation">
-                    <h2 itemprop="name">3. Nauli Kwa Semi Luxury buses from <span class="cap">
+                    <h2 itemprop="name">3. Nauli Kwa Mabasi ya Semi Luxury na Luxury Kutoka <span class="cap">
                             <%= post.info[0].from.toLowerCase() %>
-                        </span> to <span class="cap">
+                        </span> Kwenda <span class="cap">
                             <%= post.info[0].to.toLowerCase() %>
-                        </span> via barabara ya <span class="cap">
+                        </span> Kupitia Barabara ya <span class="cap">
                             <%= post.info[0].via.toLowerCase() %>
                         </span> </h2>
                     <p>
-                        >> Kwa mabasi ya Semi Luxury Nauli in terms of Tanzanian Shillings is <b
+                        >> Kwa mabasi ya Semi luxury na Luxury nauli ni <b
                             itemprop="totalPrice">Tsh. <%= post.info[0].slex %>/= </b>
                     </p>
                 </div>
 
                 <div itemscope>
                     <h2 class="h2" style="font-size: 16px;">
-                        Also See Nauli za Mabasi Elekezi from <%= post.info[0].from %> to Mikoani (Other Tanzanian
-                            Regions)
+                        Pia angalia Nauli za Mabasi Elekezi kutoka <%= post.info[0].from %> kwenda Mikoa yote Tanzania kama ilivyo ainishwa hapa chini.
                     </h2>
                     <ol class="links">
                         <% others.info.forEach(el=> { %>
                             <% if (el.rid != post.info[0].rid) { %>
                                 <li>
-                                    <a href="/<%= mkoa %>/<%= el.rid %>">Nauli from <%= el.from %> to <%= el.to %> via
+                                    <a href="/<%= mkoa %>/<%= el.rid %>">Nauli kutoka <%= el.from %> kwenda <%= el.to %> kupitia njia ya
                                                 <%= el.via %>.
                                     </a>
                                 </li>

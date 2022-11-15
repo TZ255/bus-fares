@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="<%= mkoa.mkoa %> all routes bus fares | Nauli za Mabasi ya <%= mkoa.mkoa %> kwa mikoa yote Tanzania.">
+        content="Angalia hapa nauli za Mabasi ya <%= mkoa.mkoa %> kwenda mikoa yote Tanzania.">
     <title>Nauli za Mabasi <%= mkoa.mkoa %></title>
     <%- include('./partials/style.ejs'); %>
         <%- include('../global/style.ejs'); %>
@@ -20,10 +20,10 @@
     <%- include('../global/header.ejs'); %>
         <main>
             <section class="left">
-                <h1 class="h2" style="font-size: 16px;">Nauli za Mabasi | From <%= mkoa.mkoa %> kwenda mikoa yote
+                <h1 class="h2" style="font-size: 16px;">Nauli za Mabasi ya <%= mkoa.mkoa %> kwenda mikoa yote
                         Tanzania</h1>
                 <div class="routes">
-                    <p>Hizi hapa nauli from <%= mkoa.mkoa %> to <% yote.forEach(name => { %>
+                    <p>Hizi hapa nauli kutoka <%= mkoa.mkoa %> kwenda <% yote.forEach(name => { %>
                      ,<span style="text-transform: capitalize;">
                         <%= name.toLowerCase() %> 
                      </span>
@@ -39,27 +39,26 @@
                                 </span> via <%= route.via %>
                             </h2>
                             <p itemprop="description">
-                                Hii ndiyo Nauli from <%= route.from %> to <%= route.to %> via <%= route.via %> Road kwa
-                                            ordinary buses, semi-luxury buses na luxury buses.
+                                Hii ndiyo Nauli ya kutoka <%= route.from %> kwenda <%= route.to %> kupitia njia ya <%= route.via %> kwa mabasi ya ordinary, semi-luxury na mabasi ya luxury.
                             </p>
                             <div class="rsv" itemscope itemtype="https://schema.org/BusReservation">
                                 <h3>
-                                    🚍 Nauli for Ordinary Buses from <%= route.from %> to <%= route.to %> via <%= route.via %>.
+                                    🚍 Nauli kwa mabasi ya Ordinary kutoka <%= route.from %> kwenda <%= route.to %> kupitia njia ya <%= route.via %>.
                                 </h3>
                                 <p>
-                                    >> Nauli kwa Ordinary buses ni <span class="bei" itemprop="totalPrice">Tsh. <%= route.ord %> </span>
+                                    >> Nauli kwa mabasi ya ordinary ni <span class="bei" itemprop="totalPrice">Tsh. <%= route.ord %> </span>
                                 </p>
                                 <br>
                                 <h3>
-                                    🚍 Nauli for Semi-luxury Buses from <%= route.from %> to <%= route.to %> via <%= route.via %>.
+                                    🚍 Nauli kwa mabasi ya Semi luxury na Luxury kutoka <%= route.from %> kwenda <%= route.to %> kupitia njia ya <%= route.via %>.
                                 </h3>
                                 <p>
-                                    >> Nauli kwa Semi-luxury buses ni <span class="bei" itemprop="totalPrice">Tsh. <%= route.slex %> </span>
+                                    >> Nauli kwa Semi-luxury na mabasi ya Luxury ni <span class="bei" itemprop="totalPrice">Tsh. <%= route.slex %> </span>
                                 </p>
                             </div>
 
                             <div class="more">
-                                <a href="<%= mkoa.mkoa.replace(/ /g, '_') %>/<%= route.rid %> ">🔗 JUA ZAIDI / KNOW MORE ABOUT THIS JOURNEY...</a>
+                                <a href="<%= mkoa.mkoa.replace(/ /g, '_') %>/<%= route.rid %> ">🔗 SOMA ZAIDI...</a>
                             </div>
                         </div>
                         <% }) %>

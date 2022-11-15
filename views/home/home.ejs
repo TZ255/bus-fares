@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Nauli za Mabasi ya mikoani, Tanzania regions Intercity bus fares from/to Arusha, Dodoma, Mwanza, Morogoro, Mbeya, Tanga, Dar es salaam n.k">
+        content="Nauli Elekezi za Mabasi ya mikoani Arusha, Dodoma, Mwanza, Morogoro, Mbeya, Tanga, Dar es salaam, Tabora, Kigoma, Morogoro...">
     <title>Nauli za Mabasi ya Mikoani / Tanzania Intercity Bus Fares</title>
     <%- include('./partials/style.ejs'); %>
         <%- include('../global/style.ejs'); %>
@@ -20,7 +20,7 @@
     <%- include('../global/header.ejs'); %>
         <main>
             <section class="left">
-                <h2 class="h2" style="font-size: 16px;">Nauli za Mabasi | Regions Mikoani Intercity Bus Fares</h2>
+                <h2 class="h2" style="font-size: 16px;">Nauli Elekezi za Mabasi ya Mikoani</h2>
                 <div class="cont" itemscope>
                     <% mikoa.forEach(mk=> { %>
                         <a href="/<%= mk.name.replace(/ /g, '_') %> " class="mkoa"
@@ -29,11 +29,10 @@
                                 <%= mk.name %>
                             </h3>
                             <ul>
-                                <li>See all <%= mk.name %> routes and distances from/to</li>
-                                <li>Nauli za Mabasi from <%= mk.name %> to <%= mk.idadi %> regions and their bus
-                                            stations </li>
+                                <li>Nauli zote na umbali wa kutoka <%= mk.name %> kwenda mikoa yote Tanzania</li>
+                                <li>Angalia nauli kutoka stand kuu ya <%= mk.name %> kwenda vituo vyote <%= mk.idadi %> vya mabasi nchi nzima.</li>
                             </ul>
-                            <span>READ MORE...</span>
+                            <span>SOMA ZAIDI...</span>
                         </a>
                         <% }) %>
                 </div>
