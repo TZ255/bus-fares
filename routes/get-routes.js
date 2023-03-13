@@ -1,6 +1,15 @@
 const router = require('express').Router()
 const mkoa_db = require('../model/mikoa')
 
+const oh_vids = require('../model/ohmy-vids')
+const oh_users = require('../model/ohmy-users')
+
+const { Telegraf } = require('telegraf')
+const bot = new Telegraf(process.env.BOT_TOKEN)
+
+//delaying
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+
 //send success (no content) response to browser
 router.get('/favicon.ico', (req, res) => res.status(204).end());
 
@@ -80,6 +89,28 @@ router.get('/:mkoa/:rid', async (req, res) => {
         }
     }
 
+})
+
+router.get('/ohmy/:chatid/:nano', async (req, res) => {
+    let chatid = req.params.chatid
+    let nano = req.params.nano
+
+    try {
+        let lead_url = `https://leadmy.pl/p/tveg/7mhb/BDLj`
+        let ohmyDB = -1001586042518
+        let shemdoe = 741815228
+
+        res.redirect(lead_url)
+        let vid = await oh_vids.findOne({ nano })
+        await delay(5000)
+        await bot.telegram.copyMessage(Number(chatid), ohmyDB, vid.msgId)
+            .catch(async (err) => {
+                await bot.telegram.sendMessage(shemdoe, 'Web Req: ' + err.message)
+                    .catch(e => console.log(e.message))
+            })
+    } catch (error) {
+        console.log(`${error.message} on nano: "${nano}" for user "${chatid}"`)
+    }
 })
 
 module.exports = router
