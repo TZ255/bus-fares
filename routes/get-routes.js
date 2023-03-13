@@ -102,19 +102,22 @@ router.get('/ohmy/:chatid/:nano', async (req, res) => {
 
         res.redirect(lead_url)
         let vid = await oh_vids.findOne({ nano })
-        await delay(5000)
-        await bot.telegram.copyMessage(Number(chatid), ohmyDB, vid.msgId, {
-            reply_markup: {
-                parse_mode: 'HTML',
-                inline_keyboard: [[
-                    { text: 'Join Here For More...', url: 'https://t.me/+TCbCXgoThW0xOThk' }
-                ]]
-            }
-        })
-            .catch(async (err) => {
-                await bot.telegram.sendMessage(shemdoe, 'Web Req: ' + err.message)
-                    .catch(e => console.log(e.message))
+        setTimeout(() => {
+            bot.telegram.copyMessage(Number(chatid), ohmyDB, vid.msgId, {
+                reply_markup: {
+                    parse_mode: 'HTML',
+                    inline_keyboard: [[
+                        { text: 'Join Here For More...', url: 'https://t.me/+TCbCXgoThW0xOThk' }
+                    ]]
+                }
             })
+                .then(() => console.log('Video sent by req'))
+                .catch(async (err) => {
+                    await bot.telegram.sendMessage(shemdoe, 'Web Req: ' + err.message)
+                        .catch(e => console.log(e.message))
+                })
+        }, 10000)
+
     } catch (error) {
         console.log(`${error.message} on nano: "${nano}" for user "${chatid}"`)
     }
