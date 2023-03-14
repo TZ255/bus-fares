@@ -96,7 +96,7 @@ router.get('/ohmy/:chatid/:nano', async (req, res) => {
     let nano = req.params.nano
 
     try {
-        let lead_url = `https://leadmy.pl/p/tveg/7mhb/BDLj`
+        let lead_url = `https://redirecting5.eu/p/tveg/GFOt/46RX`
         let ohmyDB = -1001586042518
         let shemdoe = 741815228
 
