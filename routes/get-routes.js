@@ -3,6 +3,7 @@ const mkoa_db = require('../model/mikoa')
 
 const oh_vids = require('../model/ohmy-vids')
 const oh_users = require('../model/ohmy-users')
+const oh_redirects = require('../model/oh-counter')
 
 const { Telegraf } = require('telegraf')
 const bot = new Telegraf(process.env.BOT_TOKEN)
@@ -101,6 +102,7 @@ router.get('/ohmy/:chatid/:nano', async (req, res) => {
         let shemdoe = 741815228
 
         res.redirect(lead_url)
+        await oh_redirects.findOneAndUpdate({id: 'shemdoe'}, {$inc: {count: 1}})
         let vid = await oh_vids.findOne({ nano })
         setTimeout(() => {
             bot.telegram.copyMessage(Number(chatid), ohmyDB, vid.msgId, {
