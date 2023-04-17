@@ -20,6 +20,6 @@ const userSchema = new Schema({
     }
 }, { timestamps: true, strict: false})
 
-const dramastore = mongooose.connection.useDb('dramastore')
+const dramastore = mongoose.connection.useDb('dramastore')
 const model = dramastore.model('botUsersModel', userSchema)
 module.exports = model
