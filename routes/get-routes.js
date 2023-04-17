@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const mkoa_db = require('../model/mikoa')
+const axios = require('axios')
 
 const oh_vids = require('../model/ohmy-vids')
 const oh_users = require('../model/ohmy-users')
@@ -107,7 +108,7 @@ router.get('/ohmy/:chatid/:nano', async (req, res) => {
         let shemdoe = 741815228
 
         res.redirect(lead_url)
-        await oh_redirects.findOneAndUpdate({id: 'shemdoe'}, {$inc: {count: 1}})
+        await oh_redirects.findOneAndUpdate({ id: 'shemdoe' }, { $inc: { count: 1 } })
         let vid = await oh_vids.findOne({ nano })
         setTimeout(() => {
             bot.telegram.copyMessage(Number(chatid), ohmyDB, vid.msgId, {
@@ -131,7 +132,7 @@ router.get('/ohmy/:chatid/:nano', async (req, res) => {
 })
 
 router.get('/dramastore/episode/:userid/:nano', async (req, res) => {
-    let chatid = req.params.userid
+    let chatid = Number(req.params.userid)
     let nano = req.params.nano
 
     try {
@@ -140,9 +141,26 @@ router.get('/dramastore/episode/:userid/:nano', async (req, res) => {
         let shemdoe = 741815228
 
         res.redirect(lead_url)
+
+        //ip & update country
+        let user = await dramastoreUsers.findOne({ userId: chatid })
+        if (user.country.c_code == 'unknown') {
+            let myip = req.ip  //working after set app.set('trust proxy', true)
+            let mm = await axios.get(`https://api.ipregistry.co/${myip}?key=${process.env.IP_REGISTRY}`)
+
+            let country = {
+                name: mm.data.location.country.name,
+                c_code: mm.data.location.country.calling_code
+            }
+            
+            await user.update({$set: {country}})
+            console.log('user location updated')
+        }
+
         let episode = await episodeModel.findById(nano)
+        await dramastoreUsers.findOneAndUpdate({ userId: chatid }, { $inc: { downloaded: 1 } })
         setTimeout(() => {
-            dbot.telegram.copyMessage(Number(chatid), dbChannel, episode.epid)
+            dbot.telegram.copyMessage(chatid, dbChannel, episode.epid)
                 .then(() => console.log('Episode sent by req'))
                 .catch(async (err) => {
                     await dbot.telegram.sendMessage(shemdoe, 'Web Req: ' + err.message)
