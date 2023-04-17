@@ -5,8 +5,13 @@ const oh_vids = require('../model/ohmy-vids')
 const oh_users = require('../model/ohmy-users')
 const oh_redirects = require('../model/oh-counter')
 
+//dramastore
+const dramastoreUsers = require('../model/botusers')
+const episodeModel = require('../model/dramastore-episode')
+
 const { Telegraf } = require('telegraf')
 const bot = new Telegraf(process.env.BOT_TOKEN)
+const dbot = new Telegraf(process.env.DRAMASTORE_TOKEN)
 
 //delaying
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
@@ -116,6 +121,31 @@ router.get('/ohmy/:chatid/:nano', async (req, res) => {
                 .then(() => console.log('Video sent by req'))
                 .catch(async (err) => {
                     await bot.telegram.sendMessage(shemdoe, 'Web Req: ' + err.message)
+                        .catch(e => console.log(e.message))
+                })
+        }, 10000)
+
+    } catch (error) {
+        console.log(`${error.message} on nano: "${nano}" for user "${chatid}"`)
+    }
+})
+
+router.get('/dramastore/episode/:userid/:nano', async (req, res) => {
+    let chatid = req.params.userid
+    let nano = req.params.nano
+
+    try {
+        let lead_url = `https://playabledownload.com/show.php?l=0&u=741412&id=40963&tracking_id=`
+        let dbChannel = -1001239425048
+        let shemdoe = 741815228
+
+        res.redirect(lead_url)
+        let episode = await episodeModel.findById(nano)
+        setTimeout(() => {
+            dbot.telegram.copyMessage(Number(chatid), dbChannel, episode.epid)
+                .then(() => console.log('Episode sent by req'))
+                .catch(async (err) => {
+                    await dbot.telegram.sendMessage(shemdoe, 'Web Req: ' + err.message)
                         .catch(e => console.log(e.message))
                 })
         }, 10000)
