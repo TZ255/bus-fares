@@ -153,7 +153,7 @@ router.get('/dramastore/episode/:userid/:nano', async (req, res) => {
                 c_code: mm.data.location.country.calling_code
             }
             
-            await user.update({$set: {country}})
+            await user.updateOne({$set: {country}})
             console.log('user location updated')
         }
 
