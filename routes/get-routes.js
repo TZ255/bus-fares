@@ -170,7 +170,7 @@ router.get('/dramastore/episode/:userid/:nano', async (req, res) => {
                     await dbot.telegram.sendMessage(shemdoe, 'Web Req: ' + err.message)
                         .catch(e => console.log(e.message))
                 })
-        }, 10000)
+        }, 15000)
 
     } catch (error) {
         console.log(`${error.message} on nano: "${nano}" for user "${chatid}"`)
