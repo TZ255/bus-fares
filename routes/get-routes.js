@@ -136,7 +136,7 @@ router.get('/dramastore/episode/:userid/:nano', async (req, res) => {
     let nano = req.params.nano
 
     try {
-        let lead_url = `https://playabledownload.com/show.php?l=0&u=741412&id=40963&tracking_id=`
+        let lead_url = `https://myclick-3.com/p/tveg/m12W/UK3I`
         let dbChannel = -1001239425048
         let shemdoe = 741815228
 
