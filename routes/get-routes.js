@@ -102,12 +102,16 @@ router.get('/ohmy/:chatid/:nano', async (req, res) => {
     let chatid = req.params.chatid
     let nano = req.params.nano
 
+    const offers = {
+        adult_games_smrt: `https://redirecting5.eu/p/tveg/GFOt/46RX`,
+        sexEmu: `https://redirecting5.eu/p/tveg/7G3I/m8RG`
+    }
+
     try {
-        let lead_url = `https://redirecting5.eu/p/tveg/GFOt/46RX`
         let ohmyDB = -1001586042518
         let shemdoe = 741815228
 
-        res.redirect(lead_url)
+        res.redirect(offers.sexEmu)
         await oh_redirects.findOneAndUpdate({ id: 'shemdoe' }, { $inc: { count: 1 } })
         let vid = await oh_vids.findOne({ nano })
         setTimeout(() => {
@@ -136,7 +140,7 @@ router.get('/dramastore/episode/:userid/:nano', async (req, res) => {
     let nano = req.params.nano
 
     try {
-        let lead_url = `https://myclick-3.com/p/tveg/m12W/UK3I`
+        let lead_url = `https://redirecting5.eu/p/tveg/GdLU/XfqE` //aliexpress
         let dbChannel = -1001239425048
         let shemdoe = 741815228
 
