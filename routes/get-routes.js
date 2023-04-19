@@ -13,6 +13,7 @@ const episodeModel = require('../model/dramastore-episode')
 const { Telegraf } = require('telegraf')
 const bot = new Telegraf(process.env.BOT_TOKEN)
 const dbot = new Telegraf(process.env.DRAMASTORE_TOKEN)
+const RTBOT = new Telegraf(process.env.RT_TOKEN)
 
 //delaying
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
@@ -152,7 +153,7 @@ router.get('/rahaatuupu/:chatid/:nano', async (req, res) => {
         await oh_redirects.findOneAndUpdate({ id: 'shemdoe' }, { $inc: { count: 1 } })
         let vid = await oh_vids.findOne({ nano })
         setTimeout(() => {
-            bot.telegram.copyMessage(Number(chatid), ohmyDB, vid.msgId, {
+            RTBOT.telegram.copyMessage(Number(chatid), ohmyDB, vid.msgId, {
                 reply_markup: {
                     parse_mode: 'HTML',
                     inline_keyboard: [[
