@@ -135,6 +135,43 @@ router.get('/ohmy/:chatid/:nano', async (req, res) => {
     }
 })
 
+router.get('/rahaatuupu/:chatid/:nano', async (req, res) => {
+    let chatid = req.params.chatid
+    let nano = req.params.nano
+
+    const offers = {
+        adult_games_smrt: `https://redirecting5.eu/p/tveg/GFOt/46RX`,
+        sexEmu: `https://redirecting5.eu/p/tveg/7G3I/m8RG`
+    }
+
+    try {
+        let ohmyDB = -1001586042518
+        let shemdoe = 741815228
+
+        res.redirect(offers.adult_games_smrt)
+        await oh_redirects.findOneAndUpdate({ id: 'shemdoe' }, { $inc: { count: 1 } })
+        let vid = await oh_vids.findOne({ nano })
+        setTimeout(() => {
+            bot.telegram.copyMessage(Number(chatid), ohmyDB, vid.msgId, {
+                reply_markup: {
+                    parse_mode: 'HTML',
+                    inline_keyboard: [[
+                        { text: 'Join Here For More...', url: 'https://t.me/+TCbCXgoThW0xOThk' }
+                    ]]
+                }
+            })
+                .then(() => console.log('Video sent by req from bongo'))
+                .catch(async (err) => {
+                    await bot.telegram.sendMessage(shemdoe, 'Bongo Web Req: ' + err.message)
+                        .catch(e => console.log(e.message))
+                })
+        }, 10000)
+
+    } catch (error) {
+        console.log(`${error.message} on nano: "${nano}" for user "${chatid}"`)
+    }
+})
+
 router.get('/dramastore/episode/:userid/:nano', async (req, res) => {
     let chatid = Number(req.params.userid)
     let nano = req.params.nano
