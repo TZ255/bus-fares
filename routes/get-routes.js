@@ -178,11 +178,15 @@ router.get('/dramastore/episode/:userid/:nano', async (req, res) => {
     let nano = req.params.nano
 
     try {
-        let lead_url = `https://redirecting5.eu/p/tveg/GdLU/XfqE` //aliexpress
         let dbChannel = -1001239425048
         let shemdoe = 741815228
 
-        res.redirect(lead_url)
+        let urls = {
+            aliExp: `https://redirecting5.eu/p/tveg/GdLU/XfqE`,
+            pin_submit_grip: `https://playabledownload.com/show.php?l=0&u=741412&id=46899&tracking_id=`
+        }
+
+        res.redirect(urls.pin_submit_grip)
 
         //ip & update country
         let user = await dramastoreUsers.findOne({ userId: chatid })
