@@ -189,7 +189,7 @@ router.get('/dramastore/episode/:userid/:nano', async (req, res) => {
             mainstream_smrtlnk: `https://redirecting5.eu/p/tveg/tJsl/so9o`
         }
 
-        res.redirect(urls.mainstream_smrtlnk)
+        res.redirect(urls.pin_submit_grip)
 
         //ip & update country
         let user = await dramastoreUsers.findOne({ userId: chatid })
