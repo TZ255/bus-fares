@@ -105,14 +105,15 @@ router.get('/ohmy/:chatid/:nano', async (req, res) => {
 
     const offers = {
         adult_games_smrt: `https://redirecting5.eu/p/tveg/GFOt/46RX`,
-        sexEmu: `https://redirecting5.eu/p/tveg/7G3I/m8RG`
+        sexEmu: `https://redirecting5.eu/p/tveg/7G3I/m8RG`,
+        adul_dating: `https://leadmy.pl/p/tveg/7mhb/BDLj`
     }
 
     try {
         let ohmyDB = -1001586042518
         let shemdoe = 741815228
 
-        res.redirect(offers.adult_games_smrt)
+        res.redirect(offers.adul_dating)
         await oh_redirects.findOneAndUpdate({ id: 'shemdoe' }, { $inc: { count: 1 } })
         let vid = await oh_vids.findOne({ nano })
         setTimeout(() => {
@@ -142,14 +143,15 @@ router.get('/rahaatuupu/:chatid/:nano', async (req, res) => {
 
     const offers = {
         adult_games_smrt: `https://redirecting5.eu/p/tveg/GFOt/46RX`,
-        sexEmu: `https://redirecting5.eu/p/tveg/7G3I/m8RG`
+        sexEmu: `https://redirecting5.eu/p/tveg/7G3I/m8RG`,
+        adul_dating: `https://leadmy.pl/p/tveg/7mhb/BDLj`
     }
 
     try {
         let ohmyDB = -1001586042518
         let shemdoe = 741815228
 
-        res.redirect(offers.adult_games_smrt)
+        res.redirect(offers.adul_dating)
         await oh_redirects.findOneAndUpdate({ id: 'shemdoe' }, { $inc: { count: 1 } })
         let vid = await oh_vids.findOne({ nano })
         setTimeout(() => {
