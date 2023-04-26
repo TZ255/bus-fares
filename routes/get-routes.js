@@ -190,7 +190,7 @@ router.get('/dramastore/episode/:userid/:nano', async (req, res) => {
             propellar_dirct: `//nossairt.net/4/5902925`
         }
 
-        res.redirect(urls.propellar_dirct)
+        res.redirect(urls.pin_submit_grip)
 
         //ip & update country
         let user = await dramastoreUsers.findOne({ userId: chatid })
