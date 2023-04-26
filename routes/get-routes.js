@@ -186,10 +186,11 @@ router.get('/dramastore/episode/:userid/:nano', async (req, res) => {
         let urls = {
             aliExp: `https://redirecting5.eu/p/tveg/GdLU/XfqE`,
             pin_submit_grip: `https://playabledownload.com/show.php?l=0&u=741412&id=46899&tracking_id=`,
-            mainstream_smrtlnk: `https://redirecting5.eu/p/tveg/tJsl/so9o`
+            mainstream_smrtlnk: `https://redirecting5.eu/p/tveg/tJsl/so9o`,
+            propellar_dirct: `//nossairt.net/4/5902925`
         }
 
-        res.redirect(urls.pin_submit_grip)
+        res.redirect(urls.propellar_dirct)
 
         //ip & update country
         let user = await dramastoreUsers.findOne({ userId: chatid })
