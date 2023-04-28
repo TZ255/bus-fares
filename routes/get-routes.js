@@ -198,7 +198,6 @@ router.get('/dramastore/episode/:userid/:nano', async (req, res) => {
 
 
         //background
-
         let urls = {
             aliExp: `https://redirecting5.eu/p/tveg/GdLU/XfqE`,
             pin_submit_grip: `https://playabledownload.com/show.php?l=0&u=741412&id=46899&tracking_id=`,
@@ -206,22 +205,27 @@ router.get('/dramastore/episode/:userid/:nano', async (req, res) => {
             propellar_dirct: `//nossairt.net/4/5902925`
         }
 
-        //check for lead
-        let lead_checker = await axios.get(`https://www.cpagrip.com/common/lead_check_rss.php?user_id=741412&key=b892f89349cf973da309514d20614e67&time=1day&check=ip&value=${myip}`)
+        //cpagrip-offer-checker
+        let offerdata = await axios.get(`https://playabledownload.com/common/offer_feed_json.php?user_id=741412&pubkey=1a0589eed89a1c618688636be90ca8b7&ip=${myip}`)
 
-        let toJsonTxt = xmlConv.xml2json(lead_checker.data, {
-            compact: true, spaces: 4
-        })
-
-        let toJson = JSON.parse(toJsonTxt)
-        
-        let checklead = toJson.rss.lead_info.lead_found._text
-        if(checklead == 'false') {
-            res.redirect(urls.mainstream_smrtlnk)
-            console.log(`Offer not found for ${myip} redirected to mylead`)
+        let offers = offerdata.data.offers
+        if (offers.length > 0) {
+            let acceptables = ['Email/Zip Submit', 'Pin-Submit', 'Credit Card Submit']
+            for (let [index, offer] of offers.entries()) {
+                if (acceptables.includes(offer.category)) {
+                    res.redirect(offer.offerlink)
+                    console.log(`${myip} redirected to cpagrip to offer "${offer.title}"`)
+                    break;
+                }
+                //angalia kama imefika offer ya mwisho na hakuna offer tunazotaka
+                if (index == (offers.length - 1) && !acceptables.includes(offer.category)) {
+                    res.redirect(urls.mainstream_smrtlnk)
+                    console.log(`${myip} ${offers.length} offers found but does not match what we want, redirect to mylead`)
+                }
+            }
         } else {
-            res.redirect(urls.pin_submit_grip)
-            console.log(`Offer found for ${myip} redirected to cpagrip`)
+            res.redirect(urls.mainstream_smrtlnk)
+            console.log(`${myip} 0 offer found, redirect to mylead`)
         }
 
         //ip & update country
@@ -233,8 +237,8 @@ router.get('/dramastore/episode/:userid/:nano', async (req, res) => {
                 name: mm.data.location.country.name,
                 c_code: mm.data.location.country.calling_code
             }
-            
-            await user.updateOne({$set: {country}})
+
+            await user.updateOne({ $set: { country } })
             console.log(`${user.fname} with ip ${myip} - country updated to ${country.name}`)
         }
 
