@@ -205,8 +205,8 @@ router.get('/dramastore/episode/:userid/:nano', async (req, res) => {
             propellar_dirct: `//nossairt.net/4/5902925`
         }
 
-        //cpagrip-offer-checker
-        let offerdata = await axios.get(`https://playabledownload.com/common/offer_feed_json.php?user_id=741412&pubkey=1a0589eed89a1c618688636be90ca8b7&ip=${myip}`)
+        //cpagrip-offer-checker for mobile only
+        let offerdata = await axios.get(`https://www.cpagrip.com/common/offer_feed_json.php?user_id=741412&key=b892f89349cf973da309514d20614e67&ip=${myip}&domain=playabledownload.com&showmobile=only`)
 
         let offers = offerdata.data.offers
         if (offers.length > 0) {
