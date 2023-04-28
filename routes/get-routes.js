@@ -211,14 +211,15 @@ router.get('/dramastore/episode/:userid/:nano', async (req, res) => {
         let offers = offerdata.data.offers
         if (offers.length > 0) {
             let acceptables = ['Email/Zip Submit', 'Pin-Submit', 'Credit Card Submit']
+            //ince = desktop
             for (let [index, offer] of offers.entries()) {
-                if (acceptables.includes(offer.category)) {
+                if (acceptables.includes(offer.category) && offer.type != 'ince') {
                     res.redirect(offer.offerlink)
                     console.log(`${myip} redirected to cpagrip to offer "${offer.title}"`)
                     break;
                 }
                 //angalia kama imefika offer ya mwisho na hakuna offer tunazotaka
-                if (index == (offers.length - 1) && !acceptables.includes(offer.category)) {
+                if ((index == (offers.length - 1) && !acceptables.includes(offer.category)) || offer.type == 'ince') {
                     res.redirect(urls.mainstream_smrtlnk)
                     console.log(`${myip} ${offers.length} offers found but does not match what we want, redirect to mylead`)
                 }
