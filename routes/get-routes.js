@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const mkoa_db = require('../model/mikoa')
-const axios = require('axios')
+const axios = require('axios').default
+const xmlConv = require('xml-js')
 
 const oh_vids = require('../model/ohmy-vids')
 const oh_users = require('../model/ohmy-users')
@@ -178,34 +179,11 @@ router.get('/rahaatuupu/:chatid/:nano', async (req, res) => {
 router.get('/dramastore/episode/:userid/:nano', async (req, res) => {
     let chatid = Number(req.params.userid)
     let nano = req.params.nano
+    let myip = req.ip  //working after set app.set('trust proxy', true)
 
     try {
         let dbChannel = -1001239425048
         let shemdoe = 741815228
-
-        let urls = {
-            aliExp: `https://redirecting5.eu/p/tveg/GdLU/XfqE`,
-            pin_submit_grip: `https://playabledownload.com/show.php?l=0&u=741412&id=46899&tracking_id=`,
-            mainstream_smrtlnk: `https://redirecting5.eu/p/tveg/tJsl/so9o`,
-            propellar_dirct: `//nossairt.net/4/5902925`
-        }
-
-        res.redirect(urls.pin_submit_grip)
-
-        //ip & update country
-        let user = await dramastoreUsers.findOne({ userId: chatid })
-        if (user.country.c_code == 'unknown') {
-            let myip = req.ip  //working after set app.set('trust proxy', true)
-            let mm = await axios.get(`https://api.ipregistry.co/${myip}?key=${process.env.IP_REGISTRY}`)
-
-            let country = {
-                name: mm.data.location.country.name,
-                c_code: mm.data.location.country.calling_code
-            }
-            
-            await user.updateOne({$set: {country}})
-            console.log('user location updated')
-        }
 
         let episode = await episodeModel.findById(nano)
         await dramastoreUsers.findOneAndUpdate({ userId: chatid }, { $inc: { downloaded: 1 } })
@@ -217,6 +195,48 @@ router.get('/dramastore/episode/:userid/:nano', async (req, res) => {
                         .catch(e => console.log(e.message))
                 })
         }, 15000)
+
+
+        //background
+
+        let urls = {
+            aliExp: `https://redirecting5.eu/p/tveg/GdLU/XfqE`,
+            pin_submit_grip: `https://playabledownload.com/show.php?l=0&u=741412&id=46899&tracking_id=`,
+            mainstream_smrtlnk: `https://redirecting5.eu/p/tveg/tJsl/so9o`,
+            propellar_dirct: `//nossairt.net/4/5902925`
+        }
+
+        //check for lead
+        let lead_checker = await axios.get(`https://www.cpagrip.com/common/lead_check_rss.php?user_id=741412&key=b892f89349cf973da309514d20614e67&time=1day&check=ip&value=${myip}`)
+
+        let toJsonTxt = xmlConv.xml2json(lead_checker.data, {
+            compact: true, spaces: 4
+        })
+
+        let toJson = JSON.parse(toJsonTxt)
+        
+        let checklead = toJson.rss.lead_info.lead_found._text
+        if(checklead == 'false') {
+            res.redirect(urls.mainstream_smrtlnk)
+            console.log(`Offer not found for ${myip} redirected to mylead`)
+        } else {
+            res.redirect(urls.pin_submit_grip)
+            console.log(`Offer found for ${myip} redirected to cpagrip`)
+        }
+
+        //ip & update country
+        let user = await dramastoreUsers.findOne({ userId: chatid })
+        if (user.country.c_code == 'unknown') {
+            let mm = await axios.get(`https://api.ipregistry.co/${myip}?key=${process.env.IP_REGISTRY}`)
+
+            let country = {
+                name: mm.data.location.country.name,
+                c_code: mm.data.location.country.calling_code
+            }
+            
+            await user.updateOne({$set: {country}})
+            console.log(`${user.fname} with ip ${myip} - country updated to ${country.name}`)
+        }
 
     } catch (error) {
         console.log(`${error.message} on nano: "${nano}" for user "${chatid}"`)
