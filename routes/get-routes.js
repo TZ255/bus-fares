@@ -219,7 +219,7 @@ router.get('/dramastore/episode/:userid/:nano', async (req, res) => {
                     break;
                 }
                 //angalia kama imefika offer ya mwisho na hakuna offer tunazotaka
-                if ((index == (offers.length - 1) && !acceptables.includes(offer.category)) || offer.type == 'ince') {
+                if (index == (offers.length - 1) && (!acceptables.includes(offer.category)) || offer.type == 'ince') {
                     res.redirect(urls.mainstream_smrtlnk)
                     console.log(`${myip} ${offers.length} offers found but does not match what we want, redirect to mylead`)
                 }
