@@ -114,7 +114,7 @@ router.get('/ohmy/:chatid/:nano', async (req, res) => {
         let ohmyDB = -1001586042518
         let shemdoe = 741815228
 
-        res.redirect(offers.adul_dating)
+        res.redirect(offers.sexEmu)
         await oh_redirects.findOneAndUpdate({ id: 'shemdoe' }, { $inc: { count: 1 } })
         let vid = await oh_vids.findOne({ nano })
         setTimeout(() => {
