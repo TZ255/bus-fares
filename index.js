@@ -6,7 +6,7 @@ const getRouter = require('./routes/get-routes')
 const app = express()
 
 // database connection
-mongoose.connect(`mongodb+srv://${process.env.USER}:${process.env.PASS}@nodetuts.ngo9k.mongodb.net/nauli?retryWrites=true&w=majority`)
+mongoose.connect(process.env.MONGO_URI)
 .then(()=> console.log('Connected to nauli database'))
 .catch((err)=> {
     console.log(err)
